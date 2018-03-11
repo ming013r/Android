@@ -604,22 +604,20 @@ public class PopQuestion extends Activity {
         itemD.setBackgroundColor(Color.GREEN);
 
 
-
-        if(way==2)
-        {
-            explain.setVisibility(View.VISIBLE);
-            explain_url.setVisibility(View.VISIBLE);
-            getScore.setVisibility(View.VISIBLE);
-            confirm.setVisibility(View.INVISIBLE);
-
-        }
-
+        TV_answerA.setVisibility(View.VISIBLE);
+        TV_answerB.setVisibility(View.VISIBLE);
+        TV_answerC.setVisibility(View.VISIBLE);
+        TV_answerD.setVisibility(View.VISIBLE);
         itemA.setVisibility(View.VISIBLE);
         itemB.setVisibility(View.VISIBLE);
         itemC.setVisibility(View.VISIBLE);
         itemD.setVisibility(View.VISIBLE);
         if(way==2)
         {
+            explain.setVisibility(View.VISIBLE);
+            explain_url.setVisibility(View.VISIBLE);
+            getScore.setVisibility(View.VISIBLE);
+            confirm.setVisibility(View.INVISIBLE);
             HideItem();
         }
 
@@ -630,16 +628,27 @@ public class PopQuestion extends Activity {
                 itemB.setVisibility(View.INVISIBLE);
                 itemC.setVisibility(View.INVISIBLE);
                 itemD.setVisibility(View.INVISIBLE);
+
+                TV_answerA.setVisibility(View.INVISIBLE);
+                TV_answerB.setVisibility(View.INVISIBLE);
+                TV_answerC.setVisibility(View.INVISIBLE);
+                TV_answerD.setVisibility(View.INVISIBLE);
             case 1:
+                TV_answerB.setVisibility(View.INVISIBLE);
+                TV_answerC.setVisibility(View.INVISIBLE);
+                TV_answerD.setVisibility(View.INVISIBLE);
 
                 itemB.setVisibility(View.INVISIBLE);
                 itemC.setVisibility(View.INVISIBLE);
                 itemD.setVisibility(View.INVISIBLE);
             case 2:
+                TV_answerC.setVisibility(View.INVISIBLE);
+                TV_answerD.setVisibility(View.INVISIBLE);
 
                 itemC.setVisibility(View.INVISIBLE);
                 itemD.setVisibility(View.INVISIBLE);
             case 3:
+                TV_answerD.setVisibility(View.INVISIBLE);
                 itemD.setVisibility(View.INVISIBLE);
             case 4:
                 //do nothiing

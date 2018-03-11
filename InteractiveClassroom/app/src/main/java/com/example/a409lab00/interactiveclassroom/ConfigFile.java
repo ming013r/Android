@@ -5,10 +5,10 @@ package com.example.a409lab00.interactiveclassroom;
  */
 
 public class ConfigFile {
-    public static boolean enableBLE=true;
+    public static boolean enableBLE=false;
     public static int BLEinterval=300;
 
-    public static String version="12";
+    public static String version="13";
 
 
     public static String IP="140.130.33.228";

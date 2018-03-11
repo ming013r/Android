@@ -79,10 +79,7 @@ public class MainView extends AppCompatActivity {
         cid=it.getIntExtra("cid",0);
 
 
-        serviceIntent = new Intent(this, BeaconService.class);
-        serviceIntent.putExtra("cid",cid);
-        serviceIntent.putExtra("token",token);
-        this.startService(serviceIntent);
+
 
 
         if(ConfigFile.enableBLE)
@@ -90,6 +87,11 @@ public class MainView extends AppCompatActivity {
             bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
             mBluetoothAdapter = bluetoothManager.getAdapter();
             mBluetoothAdapter.startLeScan(mLeScanCallback);
+
+            serviceIntent = new Intent(this, BeaconService.class);
+            serviceIntent.putExtra("cid",cid);
+            serviceIntent.putExtra("token",token);
+            this.startService(serviceIntent);
         }
 
 
