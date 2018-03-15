@@ -68,6 +68,7 @@ public class OnQuiz extends AppCompatActivity {
     String token;
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
+    Button upload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +80,8 @@ public class OnQuiz extends AppCompatActivity {
 
         setParas();
 
-        Button upload =(Button)findViewById(R.id.upload);
+        upload =(Button)findViewById(R.id.upload);
+        upload.setVisibility(View.INVISIBLE);
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,6 +95,7 @@ public class OnQuiz extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Capture();
+                upload.setVisibility(View.VISIBLE);
             }
         });
         TextView qname =(TextView)findViewById(R.id.Qname);
@@ -118,6 +121,7 @@ public class OnQuiz extends AppCompatActivity {
 
     }
     private void Capture() {
+
         Intent intent = new Intent();
         // Picture from camera
         intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -203,7 +207,7 @@ public class OnQuiz extends AppCompatActivity {
                     .setNotificationConfig(new UploadNotificationConfig())
                     .setMaxRetries(2)
                     .startUpload(); //Starting the upload
-            return "Success";
+            return "上傳成功 ! !";
         } catch (Exception exc) {
 
             return exc.getMessage();

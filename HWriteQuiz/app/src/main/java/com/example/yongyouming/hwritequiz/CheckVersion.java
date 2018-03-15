@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
@@ -74,11 +75,25 @@ public class CheckVersion extends AppCompatActivity {
 
 
     void Execute(String path) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(new File(path)), "application/vnd.android.package-archive");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        Intent i = new Intent();
+        i.setAction(Intent.ACTION_VIEW);
+        int sdkVersion = Build.VERSION.SDK_INT;
+        if(sdkVersion>23)
+        {
+            i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            File file =new File(path);
+            i.setDataAndType(FileProvider.getUriForFile(CheckVersion.this, "com.hwritequiz.fileProvider", file), "application/vnd.android.package-archive" );
+        }
+        else
+        {
+            i.setDataAndType(Uri.fromFile(new File(path)), "application/vnd.android.package-archive" );
+        }
+        startActivity(i);
         finish();
+
+
+
+
     }
     void verifyStoragePermissions(Activity activity) {
         // Check if we have write permission
