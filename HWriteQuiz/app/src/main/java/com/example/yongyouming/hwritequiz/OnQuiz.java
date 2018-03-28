@@ -13,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -140,7 +141,8 @@ public class OnQuiz extends AppCompatActivity {
         File outFile = new File(dir+"/Camera",newPicFile);
 
         mCameraFileName = outFile.toString();
-        outuri = Uri.fromFile(outFile);
+        outuri= FileProvider.getUriForFile(OnQuiz.this, "com.hwritequiz.fileProvider", outFile);
+        //outuri = Uri.fromFile(outFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, outuri);
 
 
@@ -207,7 +209,7 @@ public class OnQuiz extends AppCompatActivity {
                     .setNotificationConfig(new UploadNotificationConfig())
                     .setMaxRetries(2)
                     .startUpload(); //Starting the upload
-            return "上傳成功 ! !";
+            return "上傳中，請耐心等候! !";
         } catch (Exception exc) {
 
             return exc.getMessage();
