@@ -128,7 +128,7 @@ public class BeaconService extends Service {
                         WebSocket.SocketBroadcastModel broadcast= websocket.getBroadcast(jsonBroadcast);
                         if(cid==websocket.getBroadcast(jsonBroadcast).cid)
                         {
-                            Notify(broadcast.title+""+broadcast.type,broadcast.content);
+                            Notify(broadcast.title+"-"+broadcast.type,broadcast.content);
                         }
                         super.onPostExecute(jsonBroadcast);
                     }

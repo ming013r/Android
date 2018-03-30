@@ -194,13 +194,17 @@ public class MainView extends AppCompatActivity {
                     protected void onPostExecute(String jsonQuestion) {
                        if(cid==websocket.getCid(jsonQuestion))
                        {
-                           Intent ITquestion=new Intent();
-                           ITquestion.setClass(MainView.this,PopQuestion.class);
-                           ITquestion.putExtra("way",0);
-                           ITquestion.putExtra("jsonQ",jsonQuestion);
-                           ITquestion.putExtra("Gtitle",websocket.getTitle(jsonQuestion));
-                           ITquestion.putExtra("token",token);
-                           startActivity(ITquestion);
+                           if(!jsonQuestion.contains("title"))
+                           {
+                               Intent ITquestion=new Intent();
+                               ITquestion.setClass(MainView.this,PopQuestion.class);
+                               ITquestion.putExtra("way",0);
+                               ITquestion.putExtra("jsonQ",jsonQuestion);
+                               ITquestion.putExtra("Gtitle",websocket.getTitle(jsonQuestion));
+                               ITquestion.putExtra("token",token);
+                               startActivity(ITquestion);
+                           }
+
                        }
 
 
