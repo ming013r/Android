@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
@@ -141,8 +142,17 @@ public class OnQuiz extends AppCompatActivity {
         File outFile = new File(dir+"/Camera",newPicFile);
 
         mCameraFileName = outFile.toString();
-        outuri= FileProvider.getUriForFile(OnQuiz.this, "com.hwritequiz.fileProvider", outFile);
-        //outuri = Uri.fromFile(outFile);
+
+        int sdkVersion = Build.VERSION.SDK_INT;
+        if(sdkVersion>=24){
+            outuri= FileProvider.getUriForFile(OnQuiz.this, "com.hwritequiz.fileProvider", outFile);
+
+        }
+        else{
+            outuri = Uri.fromFile(outFile);
+        }
+
+
         intent.putExtra(MediaStore.EXTRA_OUTPUT, outuri);
 
 
