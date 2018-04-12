@@ -241,7 +241,7 @@ public class PopQuestion extends Activity {
         itemA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(type==1)
+                if(type==1 || type==3)
                 {
                     uncheck();
                     SetToDefault();
@@ -268,7 +268,7 @@ public class PopQuestion extends Activity {
         itemB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(type==1)
+                if(type==1 || type==3)
                 {
                     uncheck();
                     SetToDefault();
@@ -293,7 +293,7 @@ public class PopQuestion extends Activity {
         itemC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(type==1)
+                if(type==1 || type==3)
                 {
                     uncheck();
                     SetToDefault();
@@ -318,7 +318,7 @@ public class PopQuestion extends Activity {
         itemD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(type==1)
+                if(type==1 || type==3)
                 {
                     uncheck();
                     SetToDefault();
@@ -445,6 +445,10 @@ public class PopQuestion extends Activity {
         currentAnswer=ParseAns(ques);
         String text="";
         String myans =webapi.POST("QuestionAPI/MyAnswer","token="+token+"&id="+ques.id+"&gid="+gid);
+        if(myans.equals("0"))
+        {
+            myans="fasle,false,false,false";
+        }
         String[] myansArr=new String[4];
         myansArr=myans.split(",");
 

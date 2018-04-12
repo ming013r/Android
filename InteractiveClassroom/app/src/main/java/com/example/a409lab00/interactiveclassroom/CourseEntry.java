@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CourseEntry extends AppCompatActivity {
+
     public ArrayAdapter<Course> courseAdapter;
     WebApi webapi=new WebApi();
     String token="";
@@ -24,6 +25,8 @@ public class CourseEntry extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_entry);
+        setTitle("LIPS互動問答APP-"+ConfigFile.version+"版");
+
         Intent it =getIntent();
          token = it.getStringExtra("token");
 

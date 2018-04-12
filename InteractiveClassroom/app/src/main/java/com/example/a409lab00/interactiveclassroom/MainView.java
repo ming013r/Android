@@ -70,6 +70,8 @@ public class MainView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_view);
+        setTitle("LIPS互動問答APP-"+ConfigFile.version+"版");
+
         btn_status=(TextView)findViewById(R.id.destroy);
 
 

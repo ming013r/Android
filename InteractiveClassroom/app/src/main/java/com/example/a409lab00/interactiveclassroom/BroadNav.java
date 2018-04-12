@@ -67,7 +67,7 @@ public class BroadNav extends AppCompatActivity
         setContentView(R.layout.activity_broad_nav);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        setTitle("LIPS互動問答APP-"+ConfigFile.version+"版");
 
         normal=new ArrayList<>();
         key=new ArrayList<>();

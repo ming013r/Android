@@ -26,6 +26,8 @@ public class ReviewGroup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_entry);
+        setTitle("LIPS互動問答APP-"+ConfigFile.version+"版");
+
         websocket = new WebSocket();
         webApi = new WebApi();
         Intent it = getIntent();
