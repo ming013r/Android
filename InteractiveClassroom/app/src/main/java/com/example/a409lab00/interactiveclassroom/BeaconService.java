@@ -78,11 +78,10 @@ public class BeaconService extends Service {
             bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
             mBluetoothAdapter = bluetoothManager.getAdapter();
             mBluetoothAdapter.startLeScan(mLeScanCallback);
-
         }
 
         ///////////
-        Runnable myRunnable =BeaconRunnable("token");
+        Runnable myRunnable =BeaconRunnable();
         handler.removeCallbacks(myRunnable);
         // 設定間隔的時間
         handler.postDelayed(myRunnable, 3000);
@@ -161,12 +160,8 @@ public class BeaconService extends Service {
             while (startByte <= 5) {
 
                 if (((int) scanRecord[startByte + 2] & 0xff) == 0x02 && // Identifies
-                        // an
-                        // iBeacon
                         ((int) scanRecord[startByte + 3] & 0xff) == 0x15) { // Identifies
-                    // correct
-                    // data
-                    // length
+
                     patternFound = true;
                     break;
                 }
@@ -243,19 +238,19 @@ public class BeaconService extends Service {
 
             public void run(){
                 sec++;
-                if(sec%300==0)
+                if(sec%120==0)//re open very 2min
                 {
                     Log.d("restart","restarted");
                     mBluetoothAdapter.stopLeScan(mLeScanCallback);
                     mBluetoothAdapter.startLeScan(mLeScanCallback);
                 }
-                handler.postDelayed(this, 3000);/////by api better
+                handler.postDelayed(this, 1000);/////by api better
             }
         };
 
         return aRunnable;
     };
-    private Runnable BeaconRunnable(final String token)
+    private Runnable BeaconRunnable()
     {
 
         Runnable aRunnable = new Runnable(){
@@ -267,7 +262,7 @@ public class BeaconService extends Service {
                 {
                     if(cid!=-1)
                     {
-                        feedtoserver(token,IMEI);
+                        feedtoserver(IMEI);
                     }
 
                     counter=0;
@@ -279,7 +274,7 @@ public class BeaconService extends Service {
                 }
                 else
                 {
-                    handler.postDelayed(this, 3000);/////by api better
+                    handler.postDelayed(this, ConfigFile.BLEinterval);/////by api better
                 }
 
             }
@@ -287,7 +282,7 @@ public class BeaconService extends Service {
 
         return aRunnable;
     };
-    private void feedtoserver(String token,String IMEI)
+    private void feedtoserver(String IMEI)
     {
 
         for(int i =0 ;i<beaconlist.size();i++) {
@@ -309,6 +304,7 @@ public class BeaconService extends Service {
         {
             cid=intent.getIntExtra("cid",-1);
             token=intent.getStringExtra("token");
+
         }
         catch (Exception e)
         {

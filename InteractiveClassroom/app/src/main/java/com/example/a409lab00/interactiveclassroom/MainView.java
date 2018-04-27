@@ -275,7 +275,7 @@ public class MainView extends AppCompatActivity {
                              final byte[] scanRecord) {
             int startByte = 2;
             boolean patternFound = false;
-            // 寻找ibeacon
+
             while (startByte <= 5) {
 
                 if (((int) scanRecord[startByte + 2] & 0xff) == 0x02 &&

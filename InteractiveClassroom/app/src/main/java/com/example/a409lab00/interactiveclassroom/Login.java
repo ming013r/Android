@@ -33,6 +33,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         setTitle("LIPS互動問答APP-"+ConfigFile.version+"版");
 
+        ConfigFile config =new ConfigFile();
         Button btn =(Button)findViewById(R.id.btn_login);
         helper = new LiteAdapter(this);
         setUser();

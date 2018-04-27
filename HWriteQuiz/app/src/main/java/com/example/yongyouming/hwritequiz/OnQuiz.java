@@ -70,7 +70,7 @@ public class OnQuiz extends AppCompatActivity {
     String token;
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
-    Button upload;
+    Button upload,uploadresult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +81,8 @@ public class OnQuiz extends AppCompatActivity {
 
 
         setParas();
+        final ImageView quiz =(ImageView)findViewById(R.id.quizView);
+
 
         upload =(Button)findViewById(R.id.upload);
         upload.setVisibility(View.INVISIBLE);
@@ -90,7 +92,28 @@ public class OnQuiz extends AppCompatActivity {
                 Toast.makeText(OnQuiz.this,PostAnswer(mCameraFileName,token,String.valueOf(qid)),Toast.LENGTH_SHORT).show();
             }
         }) ;
+        uploadresult=(Button)findViewById(R.id.uploadresult);
+        uploadresult.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String res =GetResult(qid);
+                if(res.contains("error")||res.contains("Error"))
+                {
+                    Toast.makeText(OnQuiz.this,"尚未作答，或發生錯誤",Toast.LENGTH_LONG);
+                }
+                else
+                {
+                    Glide.with(OnQuiz.this).load(Constants.dURL+res).asBitmap().into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                            quiz.setImageBitmap(resource);
+                        }
+                    });
+                }
 
+
+            }
+        });
 
         Button capture=(Button)findViewById(R.id.capture);
         capture.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +129,7 @@ public class OnQuiz extends AppCompatActivity {
 
 
 
-        final ImageView quiz =(ImageView)findViewById(R.id.quizView);
+
         Glide.with(this).load(Constants.dURL+GetImage(qid)).asBitmap().into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
@@ -197,6 +220,12 @@ public class OnQuiz extends AppCompatActivity {
             Toast.makeText(OnQuiz.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
         return Image;
+    }
+    public String GetResult(int qid)
+    {
+        String result=webapi.GET("QuizsApi/getResult?token="+token+"&qid="+qid);
+
+        return result.replace("\"","");
     }
     public String PostAnswer(String path, String token, String qid)
     {
