@@ -47,6 +47,7 @@ class Broadcast
     public String title;
     public String content;
     public String type;
+    public Boolean replied;
     @Override
     public String toString() {
         if(title.length()>=25)

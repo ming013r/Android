@@ -77,7 +77,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
 
-        loginClick();
+        loginClick(1);
 
             }
         });
@@ -129,13 +129,13 @@ public class Login extends AppCompatActivity {
                 if(major==65534
                         ||major==123)
                 {
-                    loginClick();
+                    loginClick(2);
                 }
 
             }
         }
     };
-    void loginClick()
+    void loginClick(int type)
     {
 
         EditText email=(EditText)findViewById(R.id.email);
@@ -161,6 +161,11 @@ public class Login extends AppCompatActivity {
             Intent it =new Intent();
             it.setClass(Login.this,CourseEntry.class);
             it.putExtra("token",token);
+            if(type==2)
+            {
+                int ccid=Integer.valueOf(webapi.GET("CourseApi/CourseTime?token="+token));
+                it.putExtra("ccid",ccid);
+            }
             startActivity(it);
         }
         else if(token.equals("Error"))

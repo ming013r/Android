@@ -29,10 +29,18 @@ public class CourseEntry extends AppCompatActivity {
 
         Intent it =getIntent();
          token = it.getStringExtra("token");
+         int ccid=it.getIntExtra("ccid",-2);
 
         setCourseList();
 
-
+        if(ccid!=-2&&ccid!=-1)
+        {
+            Intent newit =new Intent();
+            newit.setClass(CourseEntry.this,MainView.class);
+            newit.putExtra("cid",ccid);
+            newit.putExtra("token",token);
+            startActivity(newit);
+        }
     }
     public void setCourseList()
     {

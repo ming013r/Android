@@ -133,7 +133,7 @@ public class MainView extends AppCompatActivity {
         });
 */
 
-        String broadcastJson=webapi.GET("Broadcast_reply/getBroadcast?cid="+cid);
+        String broadcastJson=webapi.GET("Broadcast_reply/getBroadcast?cid="+cid+"&token="+token);
         List<Broadcast> broadcasts=getBroadcast(broadcastJson);
 
 
@@ -161,14 +161,15 @@ public class MainView extends AppCompatActivity {
                 it.putExtra("cid",cid);
                 it.putExtra("token",token);
                 startActivity(it);
+
             }
         });
         Button btnBroad=(Button)findViewById(R.id.checkbroad);
-        btnBroad.setText("公告("+broadcasts.size()+")");
+        btnBroad.setText("公告("+getBroadcastCount(broadcasts)+")");
         btnBroad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String jsonQuestion=webapi.GET("Broadcast_reply/getBroadcast?cid="+cid);
+                String jsonQuestion=webapi.GET("Broadcast_reply/getBroadcast?cid="+cid+"&token="+token);
                 Intent ITquestion=new Intent();
                 ITquestion.setClass(MainView.this,BroadNav.class);
                 ITquestion.putExtra("jsonQ",jsonQuestion);
@@ -384,6 +385,7 @@ public class MainView extends AppCompatActivity {
                 broadcast.title=broad.getString("title");
                 broadcast.content=broad.getString("content");
                 broadcast.type=broad.getString("type");
+                broadcast.replied=broad.getBoolean("replied");
 
                 broadcasts.add(broadcast);
             }
@@ -395,6 +397,15 @@ public class MainView extends AppCompatActivity {
 
 
         return broadcasts;
+    }
+    int getBroadcastCount(List<Broadcast> broadcasts)
+    {
+        int cnt=0;
+        for (Broadcast br:broadcasts) {
+            if(!br.replied)
+                cnt++;
+        }
+        return cnt;
     }
     List<QGroup> currentQuestions(int cid)
     {

@@ -17,7 +17,7 @@ public class ConfigFile {
     public static boolean enableBLE=true;
     public static int BLEinterval;
 
-    public static String version="15";
+    public static String version="16";
 
 
     public static String IP="140.130.33.228";
