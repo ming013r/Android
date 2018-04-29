@@ -32,6 +32,7 @@ public class PopQuestion extends Activity {
     WebSocket websocket =new WebSocket();
     WebApi webapi =new WebApi();
     List<Answer> currentAnswer;
+    List<groupInfo> uInfoList;
     classQuestion currentQuestion;
     private Handler handler = new Handler();
 
@@ -136,6 +137,7 @@ public class PopQuestion extends Activity {
         way = it.getIntExtra("way",-1);
         gid=it.getIntExtra("gid",-1);
         stop=webapi.GET("QuestionAPI/getGroupStop?gid="+gid);
+        uInfoList =qInfoList(it.getStringExtra("quinfo"));
         Date nowTime =new Date();
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("\"yyyy/MM/dd HH:mm\"");
@@ -200,8 +202,11 @@ public class PopQuestion extends Activity {
         AnswerText(currentQuestion);
         reminder.setText("第"+(currentIndex+1)+"題(共"+QuestionQueue.size()+"題)");
 
+
         SetToDefault();
         uncheck();
+        setAnswered(currentQuestion.id);
+        recheck(currentQuestion);
         ///
 
         //確認作答
@@ -216,6 +221,17 @@ public class PopQuestion extends Activity {
                     String chk =result;
                 Toast.makeText(PopQuestion.this,"答案已交",Toast.LENGTH_SHORT).show();
                 confirm.setBackgroundColor(Color.WHITE);
+                for (groupInfo myans:uInfoList) {
+                    if(myans.qid==currentQuestion.id)
+                    {
+                        myans.A=Achecked;
+                        myans.B=Bchecked;
+                        myans.C=Cchecked;
+                        myans.D=Dchecked;
+                    }
+                }
+
+                confirm.setBackgroundResource(android.R.drawable.btn_default);
             }
         });
         if(QuestionQueue.size()==1)
@@ -261,7 +277,6 @@ public class PopQuestion extends Activity {
                         itemA.setBackgroundColor(Color.RED);
                     }
                 }
-
 
             }
         });
@@ -393,7 +408,9 @@ public class PopQuestion extends Activity {
         uncheck();//set all to false
         SetToDefault();
 
+        setAnswered(currentQuestion.id);
         recheck(currentQuestion);
+
 
 
 
@@ -421,6 +438,7 @@ public class PopQuestion extends Activity {
 
         uncheck();///set all to false
         SetToDefault();
+        setAnswered(currentQuestion.id);
         recheck(currentQuestion);
 
 
@@ -443,7 +461,8 @@ public class PopQuestion extends Activity {
         TV_answerD.setTextColor(defaultColor);
 
         currentAnswer=ParseAns(ques);
-        String text="";
+
+
         String myans =webapi.POST("QuestionAPI/MyAnswer","token="+token+"&id="+ques.id+"&gid="+gid);
         if(myans.equals("0"))
         {
@@ -657,6 +676,8 @@ public class PopQuestion extends Activity {
             case 4:
                 //do nothiing
         }
+
+
     }
     List<Answer> ParseAns(classQuestion question)
     {
@@ -684,5 +705,153 @@ public class PopQuestion extends Activity {
         }
 
         return answers;
+    }
+    void setAnswered(int qid)
+    {
+        for (groupInfo info: uInfoList) {
+            if(info.qid==qid)
+            {
+                ////////
+                if(info.A){
+                    Achecked=true;
+                }
+                else {
+                    Achecked=false;
+                }
+                ////////
+                if(info.B){
+                    Bchecked=true;
+                }
+                else {
+                    Bchecked=false;
+                }
+                ////////
+                if(info.C){
+                    Cchecked=true;
+                }
+                else {
+                    Cchecked=false;
+                }
+                ////////
+                if(info.D){
+                    Dchecked=true;
+                }
+                else {
+                    Dchecked=false;
+                }
+                ////////
+                currentQuestion.answer=assembleAnswer();
+            }
+        }
+    }
+    groupInfo getUserQueInfo(String ansString)
+    {
+        groupInfo qInfo =new groupInfo();
+        qInfo.qid=-1;
+        String[] myansArr=new String[4];
+        myansArr=ansString.split(",");
+
+        switch(myansArr.length){
+            case 0:
+                qInfo.A=false;
+                qInfo.B=false;
+                qInfo.C=false;
+                qInfo.D=false;
+                break;
+            case 1:
+                if(myansArr[0].equals("false"))
+                    qInfo.A=false;
+                else
+                    qInfo.A=true;
+
+                qInfo.B=false;
+                qInfo.C=false;
+                qInfo.D=false;
+                break;
+            case 2:
+                if(myansArr[0].equals("false"))
+                    qInfo.A=false;
+                else
+                    qInfo.A=true;
+                if(myansArr[1].equals("false"))
+                    qInfo.B=false;
+                else
+                    qInfo.B=true;
+                qInfo.C=false;
+                qInfo.D=false;
+
+                break;
+            case 3:
+                if(myansArr[0].equals("false"))
+                    qInfo.A=false;
+                else
+                    qInfo.A=true;
+                if(myansArr[1].equals("false"))
+                    qInfo.B=false;
+                else
+                    qInfo.B=true;
+                if(myansArr[2].equals("false"))
+                    qInfo.C=false;
+                else
+                    qInfo.C=true;
+                qInfo.D=false;
+                break;
+            case 4:
+                if(myansArr[0].equals("false"))
+                    qInfo.A=false;
+                else
+                    qInfo.A=true;
+                if(myansArr[1].equals("false"))
+                    qInfo.B=false;
+                else
+                    qInfo.B=true;
+                if(myansArr[2].equals("false"))
+                    qInfo.C=false;
+                else
+                    qInfo.C=true;
+                if(myansArr[3].equals("false"))
+                    qInfo.D=false;
+                else
+                    qInfo.D=true;
+
+                break;
+        }
+
+        return qInfo;
+    }
+    List<groupInfo> qInfoList(String jsonString)
+    {
+        List<groupInfo> infoList =new ArrayList<>();
+
+        try{
+            JSONArray jsonArray =new JSONArray(jsonString);
+            for(int i=0;i<jsonArray.length();i++)
+            {
+                JSONObject que =jsonArray.getJSONObject(i);
+
+
+                String ansString=que.getString("ans");
+                groupInfo qInfo=getUserQueInfo(ansString);
+                qInfo.qid=que.getInt("qid");
+                infoList.add(qInfo);
+            }
+
+
+
+        }catch (JSONException e)
+        {
+            e.getMessage();
+            e.printStackTrace();
+        }
+
+        return infoList;
+    }
+    class groupInfo
+    {
+        public int qid;
+        public boolean A;
+        public boolean B;
+        public boolean C;
+        public boolean D;
     }
 }

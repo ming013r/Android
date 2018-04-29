@@ -402,7 +402,7 @@ public class MainView extends AppCompatActivity {
 
 
 
-        String  jsonGroups=webapi.GET("QuestionAPI/GetQuestionGroup?cid="+cid);
+        String  jsonGroups=webapi.GET("QuestionAPI/GetQuestionGroup?cid="+cid+"&token="+token);
 
         List<QGroup> groups =new ArrayList<QGroup>();
         try{
