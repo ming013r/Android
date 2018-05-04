@@ -56,6 +56,8 @@ public class VideoList extends AppCompatActivity {
 
     void GoIndex(int position)
     {
+        String result=webapi.GET("LogAPI/SaveLog?name=點擊解釋教材&content=點擊&token="+token);
+
         Intent it_go = new Intent();
         it_go.putExtra("Name",String.valueOf(videoListModel.get(position).Name));
         it_go.putExtra("URL",videoListModel.get(position).URL);

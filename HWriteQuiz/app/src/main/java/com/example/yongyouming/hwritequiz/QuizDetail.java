@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,15 +25,22 @@ public class QuizDetail extends AppCompatActivity {
     int qid,cid;
     String token;
 
+    answerModel ansmodel;
+    quizModel quizmodel;
 
+    ImageView myans;
+    Button toOriginBtn,toMyAnsBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_detail);
         setParas();
 
-        quizModel quizmodel=new quizModel();
-        answerModel ansmodel=new answerModel();
+
+
+
+         quizmodel=new quizModel();
+         ansmodel=new answerModel();
         try{
             String JsonSourceQuiz =webapi.GET("QuizsApi/GetQuiz?id="+qid);
             JSONObject qui =new JSONObject(JsonSourceQuiz);
@@ -62,8 +70,36 @@ public class QuizDetail extends AppCompatActivity {
         mistake.setText("常犯錯誤 : "+ansmodel.UsualMistake);
 
 
+        //將ImageView圖片改為試卷檔
+        toOriginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url=Constants.dURL+GetImage(qid);
+                Glide.with(QuizDetail.this).load(Constants.dURL+GetImage(qid)).asBitmap().into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                        myans.setImageBitmap(resource);
+                    }
+                });
+            }
+        });
+        //將ImageView圖片改為學生的檔案
+        toMyAnsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url=Constants.dURL+ansmodel.Image;
+                Glide.with(QuizDetail.this).load(Constants.dURL+ansmodel.Image).asBitmap().into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                        myans.setImageBitmap(resource);
+                    }
+                });
+            }
+        });
 
-        final ImageView myans =(ImageView)findViewById(R.id.img_myans);
+
+
+         myans =(ImageView)findViewById(R.id.img_myans);
         Glide.with(this).load(Constants.dURL+ansmodel.Image).asBitmap().into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
@@ -98,7 +134,19 @@ public class QuizDetail extends AppCompatActivity {
         it.setClass(QuizDetail.this,SampleList.class);
         startActivity(it);
     }
-
+    public String GetImage(int qid)
+    {
+        String Image="";
+        try{
+            JSONArray jsonArray =new JSONArray(webapi.GET("QuizsApi/GetQuizPart?status=1&qid="+qid+"&token="));
+            JSONObject currentQuiz=jsonArray.getJSONObject(0);
+            Image=currentQuiz.getString("path");
+        }catch(JSONException e){
+            e.printStackTrace();
+            Toast.makeText(QuizDetail.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+        return Image;
+    }
     void setParas()
     {
         webapi=new WebApi();
@@ -107,5 +155,10 @@ public class QuizDetail extends AppCompatActivity {
         qid=it_prev.getIntExtra("qid",-1);
         cid=it_prev.getIntExtra("cid",-1);
         token =it_prev.getStringExtra("token");
+
+
+
+        toMyAnsBtn =(Button)findViewById(R.id.toMyAns);
+        toOriginBtn=(Button)findViewById(R.id.toOrigin);
     }
 }

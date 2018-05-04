@@ -47,7 +47,11 @@ public class QuizHistoryList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3)
             {
-                CheckQuiz(QuizList.get(position).id);
+                int qid = QuizList.get(position).id;
+                webapi.GET("LogAPI/SaveLog?name=觀看歷史QUIZ&content="+qid+"&token="+token);
+
+
+                CheckQuiz(qid);
             }
         });
 

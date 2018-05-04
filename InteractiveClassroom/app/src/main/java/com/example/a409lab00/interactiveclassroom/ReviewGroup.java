@@ -42,11 +42,13 @@ public class ReviewGroup extends AppCompatActivity {
         LV_GroupList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                int gid =GroupList.get(position).id;
 
+                webApi.GET("LogAPI/SaveLog?name=點擊歷史試卷Question&content="+gid+"&token="+token);
                 String jsonQuestion = webApi.GET("QuestionAPI/GetQuestion?gid=" + GroupList.get(position).id);
                 Intent ITquestion = new Intent();
                 ITquestion.setClass(ReviewGroup.this, PopQuestion.class);
-                ITquestion.putExtra("gid", GroupList.get(position).id);
+                ITquestion.putExtra("gid", gid);
                 ITquestion.putExtra("jsonQ", jsonQuestion);
                 ITquestion.putExtra("way", 2);
                 ITquestion.putExtra("Gtitle", websocket.getTitle(jsonQuestion));

@@ -156,7 +156,8 @@ public class Login extends AppCompatActivity {
 
         if(token.length()==8)
         {
-            mBluetoothAdapter.stopLeScan(mLeScanCallback);
+            if(ConfigFile.enableBLE)
+                mBluetoothAdapter.stopLeScan(mLeScanCallback);
 
             Intent it =new Intent();
             it.setClass(Login.this,CourseEntry.class);
