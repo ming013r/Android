@@ -137,7 +137,12 @@ public class PopQuestion extends Activity {
         way = it.getIntExtra("way",-1);
         gid=it.getIntExtra("gid",-1);
         stop=webapi.GET("QuestionAPI/getGroupStop?gid="+gid);
-        uInfoList =qInfoList(it.getStringExtra("quinfo"));
+
+        if(way!=2)
+        {
+            uInfoList =qInfoList(it.getStringExtra("quinfo"));
+        }
+
         Date nowTime =new Date();
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("\"yyyy/MM/dd HH:mm\"");
@@ -205,7 +210,8 @@ public class PopQuestion extends Activity {
 
         SetToDefault();
         uncheck();
-        setAnswered(currentQuestion.id);
+        if(way!=2)
+            setAnswered(currentQuestion.id);
         recheck(currentQuestion);
         ///
 
@@ -407,8 +413,8 @@ public class PopQuestion extends Activity {
 
         uncheck();//set all to false
         SetToDefault();
-
-        setAnswered(currentQuestion.id);
+        if(way!=2)
+            setAnswered(currentQuestion.id);
         recheck(currentQuestion);
 
 
@@ -438,7 +444,8 @@ public class PopQuestion extends Activity {
 
         uncheck();///set all to false
         SetToDefault();
-        setAnswered(currentQuestion.id);
+        if(way!=2)
+            setAnswered(currentQuestion.id);
         recheck(currentQuestion);
 
 
