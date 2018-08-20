@@ -11,73 +11,80 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteY="16dp">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="176dp">
 
             <TextView
                 android:id="@+id/pastQuizName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:text="試題名稱"
+                android:text="試卷名稱"
+                android:textColor="@android:color/black"
                 android:textSize="24sp"
+                app:layout_constraintEnd_toStartOf="@+id/btn_goSample"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_myScore"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="21dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="60dp"
-                android:text="我的分數："
+                android:layout_marginTop="44dp"
+                android:text="得分："
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/pastQuizName" />
 
             <TextView
                 android:id="@+id/tv_myMistake"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="常犯錯誤:"
-                android:textSize="10sp"
+                android:layout_marginTop="16dp"
+                android:text="作答建議:"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/tv_myScore"
                 app:layout_constraintTop_toBottomOf="@+id/tv_myScore" />
 
             <Button
                 android:id="@+id/btn_goSample"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
-                android:text="查看範例"
+                android:elevation="0dp"
+                android:text="作答示範"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/toMyAns"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
-                android:text="我的答案"
+                android:text="已評答卷"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_goSample" />
 
             <Button
                 android:id="@+id/toOrigin"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
-                android:layout_marginTop="64dp"
-                android:text="原試卷"
-                app:layout_constraintEnd_toStartOf="@+id/toMyAns"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:text="題目試卷"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toMyAns" />
         </android.support.constraint.ConstraintLayout>
 
         <ImageView

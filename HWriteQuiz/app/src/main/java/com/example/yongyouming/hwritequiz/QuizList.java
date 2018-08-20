@@ -31,13 +31,14 @@ public class QuizList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_list);
+        setTitle("行動學習作答-"+ConfigFile.version+"版");
 
         lv_quiz = (ListView) findViewById(R.id.lv_quiz);
         setParas();
         webapi = new WebApi();
 
         QuizList = new ArrayList<QuizesModel>();
-        AddtoList(webapi.GET("QuizsApi/GetQuizPart?status=1&qid=&token="));
+        AddtoList(webapi.GET("QuizsApi/GetQuizPart?status=1&qid=&token=&cid="));
 
         listAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,QuizList);
         lv_quiz.setAdapter(listAdapter);

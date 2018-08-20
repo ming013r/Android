@@ -32,6 +32,7 @@ public class VideoList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_list);
+        setTitle("行動學習作答-"+ConfigFile.version+"版");
 
         webapi = new WebApi();
         setParas();

@@ -41,7 +41,7 @@ public class CheckVersion extends AppCompatActivity {
         webapi =new WebApi();
         webapi.startInternet();
         verifyStoragePermissions(CheckVersion.this);
-
+        setTitle("行動學習作答-"+ConfigFile.version+"版");
 
     }
     void Download() {

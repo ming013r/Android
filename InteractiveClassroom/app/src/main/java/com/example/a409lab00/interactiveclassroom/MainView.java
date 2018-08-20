@@ -94,6 +94,7 @@ public class MainView extends AppCompatActivity {
             serviceIntent.putExtra("cid",cid);
             serviceIntent.putExtra("token",token);
             this.startService(serviceIntent);
+
         }
 
 
@@ -238,11 +239,12 @@ public class MainView extends AppCompatActivity {
         Runnable aRunnable = new Runnable(){
 
             public void run(){
-                counter+=10;
+                counter+=3;
                 if(counter%30==0)
                 {
                     if(scanned)
                     {
+                        webapi.GET("AccountApi/enterClassroom?cid="+cid+"&token="+token);
                         changeBeaconStatus();
                         btn_status.setText(BeaconStatus());
                         if(!loginSent)

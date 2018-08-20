@@ -34,6 +34,7 @@ public class QuizDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_detail);
+        setTitle("行動學習作答-"+ConfigFile.version+"版");
         setParas();
 
 
@@ -63,11 +64,11 @@ public class QuizDetail extends AppCompatActivity {
             Toast.makeText(QuizDetail.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
         TextView tv= (TextView)findViewById(R.id.pastQuizName);
-        tv.setText("Quiz Name : "+quizmodel.Name);
+        tv.setText("試卷名稱 : "+quizmodel.Name);
         TextView score =(TextView)findViewById(R.id.tv_myScore);
-        score.setText("Score : "+ansmodel.Score);
+        score.setText("得分 : "+ansmodel.Score);
         TextView mistake =(TextView)findViewById(R.id.tv_myMistake);
-        mistake.setText("常犯錯誤 : "+ansmodel.UsualMistake);
+        mistake.setText("作答建議 : "+ansmodel.UsualMistake);
 
 
         //將ImageView圖片改為試卷檔
@@ -138,7 +139,7 @@ public class QuizDetail extends AppCompatActivity {
     {
         String Image="";
         try{
-            JSONArray jsonArray =new JSONArray(webapi.GET("QuizsApi/GetQuizPart?status=1&qid="+qid+"&token="));
+            JSONArray jsonArray =new JSONArray(webapi.GET("QuizsApi/GetQuizPart?status=1&qid="+qid+"&token=&cid="));
             JSONObject currentQuiz=jsonArray.getJSONObject(0);
             Image=currentQuiz.getString("path");
         }catch(JSONException e){

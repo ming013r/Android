@@ -26,6 +26,7 @@ public class SampleDisplay extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sample_display);
+        setTitle("行動學習作答-"+ConfigFile.version+"版");
         setParas();
 
         quizModel quizmodel=new quizModel();

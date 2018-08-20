@@ -30,6 +30,7 @@ public class WatchVideo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watch_video);
+        setTitle("行動學習作答-"+ConfigFile.version+"版");
 
         Intent getEX=getIntent();
 
@@ -40,7 +41,7 @@ public class WatchVideo extends AppCompatActivity {
         TextView name=(TextView)findViewById(R.id.vidName);
         name.setText(Name);
 
-        String frameVideo = "<html><body>myVIdeo<br><iframe width=\"349\" height=\"256\" src=\""+URL+"\" frameborder=\"0\" allowfullscreen></iframe></body></html>";
+        String frameVideo = "<html><body><br><iframe width=\"349\" height=\"256\" src=\""+URL+"\" frameborder=\"0\" allowfullscreen></iframe></body></html>";
         displayYoutubeVideo = (WebView) findViewById(R.id.mWebView);
 
         displayYoutubeVideo.setWebViewClient(new WebViewClient() {

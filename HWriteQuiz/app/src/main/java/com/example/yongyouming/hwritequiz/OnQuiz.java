@@ -76,6 +76,7 @@ public class OnQuiz extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_quiz);
+        setTitle("行動學習作答-"+ConfigFile.version+"版");
 
         askPermission();
 
@@ -197,7 +198,7 @@ public class OnQuiz extends AppCompatActivity {
     {
         String Name="";
         try{
-            JSONArray jsonArray =new JSONArray(webapi.GET("QuizsApi/GetQuizPart?status=1&qid="+qid+"&token="));
+            JSONArray jsonArray =new JSONArray(webapi.GET("QuizsApi/GetQuizPart?status=1&qid="+qid+"&token=&cid="));
             JSONObject currentQuiz=jsonArray.getJSONObject(0);
             Name=currentQuiz.getString("Name");
 
@@ -212,7 +213,7 @@ public class OnQuiz extends AppCompatActivity {
     {
         String Image="";
         try{
-            JSONArray jsonArray =new JSONArray(webapi.GET("QuizsApi/GetQuizPart?status=1&qid="+qid+"&token="));
+            JSONArray jsonArray =new JSONArray(webapi.GET("QuizsApi/GetQuizPart?status=1&qid="+qid+"&token=&cid="));
             JSONObject currentQuiz=jsonArray.getJSONObject(0);
             Image=currentQuiz.getString("path");
         }catch(JSONException e){
