@@ -126,7 +126,7 @@ public class OnQuiz extends AppCompatActivity {
         });
         TextView qname =(TextView)findViewById(R.id.Qname);
 
-        qname.setText("試卷名稱"+GetName(qid));
+        qname.setText(GetName(qid));
 
 
 

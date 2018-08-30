@@ -64,7 +64,7 @@ public class QuizDetail extends AppCompatActivity {
             Toast.makeText(QuizDetail.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
         TextView tv= (TextView)findViewById(R.id.pastQuizName);
-        tv.setText("試卷名稱 : "+quizmodel.Name);
+        tv.setText(quizmodel.Name);
         TextView score =(TextView)findViewById(R.id.tv_myScore);
         score.setText("得分 : "+ansmodel.Score);
         TextView mistake =(TextView)findViewById(R.id.tv_myMistake);

@@ -53,7 +53,7 @@ public class SampleDisplay extends AppCompatActivity {
             Toast.makeText(SampleDisplay.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
         TextView tv= (TextView)findViewById(R.id.sampleQuizName);
-        tv.setText("Quiz Name : "+quizmodel.Name);
+        tv.setText(quizmodel.Name);
         TextView score =(TextView)findViewById(R.id.tv_sampleScore);
         score.setText("Score : "+ansmodel.Score);
         TextView mistake =(TextView)findViewById(R.id.tv_sampleMistake);

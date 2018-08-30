@@ -1,6 +1,7 @@
 package com.example.yongyouming.hwritequiz;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -56,10 +57,12 @@ public class CourseIndex extends AppCompatActivity {
         if(QuizList.size()==0)
         {
             message.setText("尚無進行中試題");
+            message.setTextColor(Color.BLACK);
         }
         else
         {
             message.setText("有進行中試題!   請點選\"前往作答\"");
+            message.setTextColor(Color.RED);
         }
         previewList =(ListView)findViewById(R.id.previewQuiz);
         listadapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,QuizList);
