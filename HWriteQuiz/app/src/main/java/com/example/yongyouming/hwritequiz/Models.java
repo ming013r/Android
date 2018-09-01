@@ -1,5 +1,7 @@
 package com.example.yongyouming.hwritequiz;
 
+import android.util.Log;
+
 /**
  * Created by yongyouming on 2018/2/7.
  */
@@ -37,7 +39,9 @@ class QuizesModel
     @Override
     public String toString()
     {
-        return "["+Name+"]"+"備註 ："+remark;
+        String res =  "["+Name+"]";
+
+        return res;
     }
 }
 
@@ -55,6 +59,7 @@ class answerModel
     public String Image;
     public int Score;
     public String  UsualMistake;
+    public String remark;
     @Override
-    public String toString(){return "Answer Sample : ["+id+"]"+"分數 : "+Score;}
+    public String toString(){return "["+id+"]分數 : "+Score;}
 }

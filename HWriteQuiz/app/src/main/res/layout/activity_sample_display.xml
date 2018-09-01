@@ -10,12 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="138dp">
 
             <TextView
                 android:id="@+id/sampleQuizName"
@@ -47,10 +47,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="常犯錯誤:"
+                android:text="作答建議 :"
                 android:textSize="10sp"
                 app:layout_constraintStart_toStartOf="@+id/tv_sampleScore"
                 app:layout_constraintTop_toBottomOf="@+id/tv_sampleScore" />
+
+            <TextView
+                android:id="@+id/tv_sampleSug"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="評語 : "
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_sampleMistake"
+                app:layout_constraintTop_toBottomOf="@+id/tv_sampleMistake" />
 
 
         </android.support.constraint.ConstraintLayout>
