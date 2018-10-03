@@ -56,6 +56,7 @@ public class QuizDetail extends AppCompatActivity {
             ansmodel.Image=ans.getString("file");
             ansmodel.Score=Integer.parseInt(ans.getString("Score"));
             ansmodel.UsualMistake=ans.getString("UsualMistake");
+            ansmodel.remark = ans.getString("remark");
 
 
 
@@ -69,6 +70,15 @@ public class QuizDetail extends AppCompatActivity {
         score.setText("得分 : "+ansmodel.Score);
         TextView mistake =(TextView)findViewById(R.id.tv_myMistake);
         mistake.setText("作答建議 : "+ansmodel.UsualMistake);
+        TextView suggestion = (TextView)findViewById(R.id.tv_suggest);
+        suggestion.setVisibility(View.INVISIBLE);
+        if(ansmodel.remark!=null && ansmodel.remark!="")
+        {
+            suggestion.setVisibility(View.VISIBLE);
+            suggestion.setText("評語 : "+ansmodel.remark);
+        }
+
+
 
 
         //將ImageView圖片改為試卷檔

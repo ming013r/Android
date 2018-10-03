@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,6 +59,15 @@ public class SampleDisplay extends AppCompatActivity {
         score.setText("Score : "+ansmodel.Score);
         TextView mistake =(TextView)findViewById(R.id.tv_sampleMistake);
         mistake.setText("常犯錯誤 : "+ansmodel.UsualMistake);
+
+        TextView sug = (TextView)findViewById(R.id.tv_sampleSug);
+        sug.setVisibility(View.INVISIBLE);
+
+        if(ansmodel.remark!=null&&ansmodel.remark!="")
+        {
+            sug.setVisibility(View.VISIBLE);
+            sug.setText("評語 : "+ansmodel.remark);
+        }
 
 
 

@@ -91,6 +91,15 @@
                 app:layout_constraintHorizontal_bias="0.431"
                 app:layout_constraintStart_toEndOf="@+id/toMyAns"
                 app:layout_constraintTop_toTopOf="@+id/toMyAns" />
+
+            <TextView
+                android:id="@+id/tv_suggest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="評語:"
+                app:layout_constraintStart_toStartOf="@+id/tv_myMistake"
+                app:layout_constraintTop_toBottomOf="@+id/tv_myMistake" />
         </android.support.constraint.ConstraintLayout>
 
         <ImageView
